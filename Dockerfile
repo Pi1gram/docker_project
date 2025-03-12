@@ -8,4 +8,4 @@ WORKDIR /app
 COPY . .
 
 # Define the default command
-CMD ["python3", "app.py"]
+CMD ["python3", "--version"]
