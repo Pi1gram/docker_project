@@ -54,6 +54,12 @@ Example:
 docker rmi python:3.11-slim
 ```
 
+### Remove All Images
+
+```sh
+docker rmi $(docker ps -aq)
+```
+
 ### Build an Image from a Dockerfile
 
 ```sh
@@ -104,6 +110,12 @@ docker start <container-name-or-id>
 
 ```sh
 docker stop <container-name-or-id>
+```
+
+### Stop All Containers
+
+```sh
+docker stop $(docker ps -aq)
 ```
 
 ### Restart a Container
