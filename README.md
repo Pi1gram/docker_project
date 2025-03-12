@@ -15,10 +15,7 @@ docker build -t my-python-app
 To run the Docker container, use the following command:
 
 ```sh
-docker run -d -p 5000:5000 my-python-app
+docker run my-python-app
 ```
 
-This will start the container and map port 5000 of the container to port 5000 on your host machine.
-
-Example Usage
-You can now access your application by navigating to <http://localhost:5000> in your web browser
+Outputting the version of python being used
