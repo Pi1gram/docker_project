@@ -245,6 +245,7 @@ docker container prune
 ```sh
 docker inspect <container-name-or-id>
 ```
+
 ## References
 
 - [Docker Docs](https://docs.docker.com/)
