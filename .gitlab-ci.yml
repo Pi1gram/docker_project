@@ -4,10 +4,6 @@ default:
   tags:
     - build-runner
 
-# variables:
-#   # Disable TLS cert generation (optional, depending on your setup)
-#   DOCKER_TLS_CERTDIR: ""
-
 stages:
   - build
 
