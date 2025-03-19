@@ -4,7 +4,8 @@ default:
   tags:
     - build-runner
 
-image: gcr.io/kaniko-project/executor:latest
+# image: gcr.io/kaniko-project/executor:latest
+image: 579238664596.dkr.ecr.ap-southeast-2.amazonaws.com/kaniko:latest
 
 variables:
   # Disable TLS cert generation (optional, depending on your setup)
