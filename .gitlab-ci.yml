@@ -4,6 +4,12 @@ default:
   tags:
     - build-runner
 
+image: gcr.io/kaniko-project/executor:latest
+
+variables:
+  # Disable TLS cert generation (optional, depending on your setup)
+  DOCKER_TLS_CERTDIR: ""
+
 stages:
   - build
 
@@ -27,14 +33,21 @@ stages:
 #   - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
 
 
-docker:
+# docker:
+#   stage: build
+#   image: docker:19-dind
+#   services:
+#     - name: docker:19-dind
+#       command: ["--tls=false"]
+#   variables:
+#     DOCKER_HOST: tcp://docker:2375
+#   script:
+#     - docker build
+#         -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA} .
+
+
+build:
   stage: build
-  image: docker:19-dind
-  services:
-    - name: docker:19-dind
-      command: ["--tls=false"]
-  variables:
-    DOCKER_HOST: tcp://docker:2375
   script:
-    - docker build
-        -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA} .
+    # Build the Docker image using Kaniko, reading the context and Dockerfile from your project.
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
