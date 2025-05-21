@@ -1,19 +1,22 @@
 ---
-
 default:
+  image: docker:24.0.5
+  services:
+    - docker:24.0.5-dind
   tags:
     - build-runner
 
 stages:
   - build
 
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+
 build:
-  image: 579238664596.dkr.ecr.ap-southeast-2.amazonaws.com/kaniko:latest
   stage: build
   script:
-    # Build the Docker image using Kaniko 
-    - >
-      /kaniko/executor 
-      --context $CI_PROJECT_DIR 
-      --dockerfile $CI_PROJECT_DIR/Dockerfile 
-      --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker info
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
